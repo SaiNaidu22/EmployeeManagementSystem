@@ -1,25 +1,25 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+# Build Stage
+FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 
 WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore
+RUN dotnet restore EmployeeManagementAPI.csproj
 
-RUN dotnet publish \
+RUN dotnet publish EmployeeManagementAPI.csproj \
 -c Release \
 -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0
+# Runtime Stage
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview
 
 WORKDIR /app
 
-COPY --from=build \
-/app/publish .
+COPY --from=build /app/publish .
 
 EXPOSE 8080
 
-ENTRYPOINT [
-"dotnet",
-"EmployeeManagementAPI.dll"
-]
+ENV ASPNETCORE_URLS=http://+:8080
+
+ENTRYPOINT ["dotnet", "EmployeeManagementAPI.dll"]
