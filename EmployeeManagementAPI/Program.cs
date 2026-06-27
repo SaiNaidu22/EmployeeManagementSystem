@@ -42,7 +42,8 @@ builder.Services.AddCors(options =>
         {
             policy
                 .WithOrigins(
-                    "http://localhost:5173")
+                    "http://localhost:5173",
+                    "https://employee-management-system-ecru-eta.vercel.app")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -76,6 +77,8 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("ReactPolicy");
@@ -84,7 +87,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseHttpsRedirection();
+
 
 app.MapControllers();
 
