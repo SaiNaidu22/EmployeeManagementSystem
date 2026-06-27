@@ -1,0 +1,15 @@
+# Node
+employee-ui/node_modules
+employee-ui/dist
+
+# .NET
+EmployeeManagementAPI/bin
+EmployeeManagementAPI/obj
+
+# VS
+.vs
+*.user
+*.suo
+
+# Environment
+.env

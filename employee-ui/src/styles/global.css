@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+
+  background: #0f172a; /* deep navy */
+  color: #e5e7eb;
+}
+
+/* Center container spacing */
+.container {
+  padding-top: 30px;
+}
+
+/* Card styling (dark glass effect) */
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  color: #e5e7eb;
+}
+
+/* Table styling */
+.table {
+  background: #1e293b;
+  color: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: #334155;
+  color: #ffffff;
+}
+
+.table tbody tr {
+  border-color: #334155;
+}
+
+.table tbody tr:hover {
+  background: #273449;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 6px !important;
+}
+
+/* Inputs */
+input {
+  background: #0b1220 !important;
+  color: #e5e7eb !important;
+  border: 1px solid #334155 !important;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #f1f5f9;
+}
+
+/* Smooth look */
+button {
+  transition: 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #1f2937 25%,
+    #374151 50%,
+    #1f2937 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

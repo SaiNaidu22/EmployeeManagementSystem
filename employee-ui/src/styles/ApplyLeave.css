@@ -1,0 +1,70 @@
+.apply-leave-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #eef2f7, #d9e4f5);
+  padding: 30px;
+}
+
+.apply-leave-card {
+  width: 550px;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.apply-leave-header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+.apply-leave-header h2 {
+  margin: 0;
+}
+
+.apply-leave-body {
+  padding: 30px;
+}
+
+.leave-input,
+.leave-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.leave-textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+.leave-input:focus,
+.leave-textarea:focus {
+  outline: none;
+  border-color: #2a5298;
+}
+
+.leave-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #1e3c72;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.leave-btn:hover {
+  background: #16305d;
+}

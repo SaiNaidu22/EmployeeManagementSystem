@@ -1,0 +1,106 @@
+/* PAGE BACKGROUND */
+.leave-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2f7, #d9e4f5);
+  padding: 30px 20px;
+}
+
+/* TITLE */
+.page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+/* TABLE WRAPPER CARD */
+.table-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+/* TABLE */
+.leave-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* HEADER */
+.leave-table thead {
+  background: #1e3c72;
+  color: white;
+}
+
+.leave-table th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 700;
+}
+
+/* ROWS */
+.leave-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.leave-table tbody tr:hover {
+  background: #f6f9ff;
+}
+
+/* STATUS BADGES */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.Pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.Approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.Rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* BUTTONS (CLEAN & UNIFORM) */
+.leave-table button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* Approve */
+.btn-approve {
+  background: #1e3c72;
+  color: white;
+}
+
+.btn-approve:hover {
+  background: #16305d;
+}
+
+/* Reject */
+.btn-reject {
+  background: #e74c3c;
+  color: white;
+}
+
+.btn-reject:hover {
+  background: #c0392b;
+}
