@@ -29,18 +29,7 @@ function Login() {
     }
   }, []);
 
-  const handleLogin = async () => {
-  try {
-
-    const response =
-  await api.post(
-    "/Auth/login",
-    {
-      username,
-      password
-    }
-  );
-
+x
     localStorage.setItem(
       "token",
       response.data.token
@@ -82,13 +71,17 @@ function Login() {
     }
 
   }
-  catch {
+ catch (error) {
 
-    toast.error(
-      "Invalid Credentials"
-    );
-  }
-};
+  console.log("Status:", error.response?.status);
+
+  console.log("Data:", error.response?.data);
+
+  toast.error(
+    error.response?.data || "Login Failed"
+  );
+}
+
 
   return (
   <div className="login-container">
