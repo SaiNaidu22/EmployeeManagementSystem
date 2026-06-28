@@ -1,140 +1,103 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import api from "../api/axios";
 import "../styles/Login.css";
 
 function Login() {
   const navigate = useNavigate();
 
-  const [username, setUsername] =
-    useState("");
-
-  const [password, setPassword] =
-    useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (
-      localStorage.getItem(
-        "sessionExpired"
-      )
-    ) {
-      toast.warning(
-        "Session expired. Please login again."
-      );
-
-      localStorage.removeItem(
-        "sessionExpired"
-      );
+    if (localStorage.getItem("sessionExpired")) {
+      toast.warning("Session expired. Please login again.");
+      localStorage.removeItem("sessionExpired");
     }
   }, []);
 
-x
-    localStorage.setItem(
-      "token",
-      response.data.token
-    );
+  const handleLogin = async () => {
+    try {
+      console.log("API URL:", import.meta.env.VITE_API_URL);
 
-    localStorage.setItem(
-      "role",
-      response.data.role
-    );
+      const response = await api.post("/Auth/login", {
+        username,
+        password,
+      });
 
-    localStorage.setItem(
-      "employeeId",
-      response.data.employeeId
-    );
+      console.log("Login Success:", response.data);
 
-    if (
-      response.data
-        .mustChangePassword
-    ) {
-      navigate(
-        "/change-password"
-      );
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", response.data.role);
+      localStorage.setItem("employeeId", response.data.employeeId);
 
-      return;
-    }
+      if (response.data.mustChangePassword) {
+        navigate("/change-password");
+        return;
+      }
 
-    if (
-      response.data.role ===
-      "Admin"
-    ) {
-      navigate(
-        "/admin-dashboard"
-      );
-    }
-    else {
-      navigate(
-        "/employee-dashboard"
+      if (response.data.role === "Admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/employee-dashboard");
+      }
+    } catch (error) {
+      console.log("========== LOGIN ERROR ==========");
+      console.log("Status:", error.response?.status);
+      console.log("Data:", error.response?.data);
+      console.log("Full Error:", error);
+
+      toast.error(
+        error.response?.data?.message ||
+          error.response?.data ||
+          "Invalid Credentials"
       );
     }
-
-  }
- catch (error) {
-
-  console.log("Status:", error.response?.status);
-
-  console.log("Data:", error.response?.data);
-
-  toast.error(
-    error.response?.data || "Login Failed"
-  );
-}
-
+  };
 
   return (
-  <div className="login-container">
+    <div className="login-container">
+      <div className="login-card">
+        <h1 className="login-title">
+          Employee Management System
+        </h1>
 
-    <div className="login-card">
+        <p className="login-subtitle">
+          Sign in to continue
+        </p>
 
-      <h1 className="login-title">
-        Employee Management System
-      </h1>
+        <input
+          className="login-input"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
 
-      <p className="login-subtitle">
-        Sign in to continue
-      </p>
+        <input
+          className="login-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <input
-        className="login-input"
-        placeholder="Username"
-        value={username}
-        onChange={(e) =>
-          setUsername(e.target.value)
-        }
-      />
+        <button
+          className="login-btn"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
 
-      <input
-        className="login-input"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) =>
-          setPassword(e.target.value)
-        }
-      />
-
-      <button
-        className="login-btn"
-        onClick={handleLogin}
-      >
-        Login
-      </button>
-
-      <button
-        className="forgot-btn"
-        onClick={() =>
-          navigate("/forgot-password")
-        }
-      >
-        Forgot Password?
-      </button>
-
+        <button
+          className="forgot-btn"
+          onClick={() => navigate("/forgot-password")}
+        >
+          Forgot Password?
+        </button>
+      </div>
     </div>
-
-  </div>
-);
+  );
 }
 
 export default Login;
