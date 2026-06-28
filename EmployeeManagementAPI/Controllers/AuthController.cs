@@ -30,17 +30,20 @@ public IActionResult Login(
     LoginRequestDto request)
 {
     var user =
-        _context.Users
-            .FirstOrDefault(
-                x => x.Username ==
-                     request.Username);
+    _context.Users
+        .FirstOrDefault(
+            x => x.Username ==
+                 request.Username);
 
-    if (user == null)
-        return Unauthorized();
-
-   if(user.PasswordHash != request.Password)
+if (user == null)
 {
-    return Unauthorized();
+    return BadRequest($"User '{request.Username}' not found");
+}
+
+if (user.PasswordHash != request.Password)
+{
+    return BadRequest(
+        $"Password mismatch. DB='{user.PasswordHash}', Request='{request.Password}'");
 }
     var token =
         GenerateJwtToken(
