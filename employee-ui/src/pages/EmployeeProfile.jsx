@@ -26,15 +26,9 @@ function EmployeeProfile() {
         );
 
       const response =
-        await axios.get(
-          `http://localhost:5157/api/Employee/profile/${employeeId}`,
-          {
-            headers: {
-              Authorization:
-                `Bearer ${token}`
-            }
-          }
-        );
+  await api.get(
+    `/Employee/profile/${employeeId}`
+  );
 
       setEmployee(
         response.data

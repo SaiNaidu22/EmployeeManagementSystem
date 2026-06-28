@@ -19,44 +19,22 @@ const getAuthHeader = () => ({
 // PROFILE
 export const getProfile =
   (id) =>
-    axios.get(
-      `${BASE_URL}/profile/${id}`,
-      getAuthHeader()
-    );
-
+   api.get(`/profile/${id}`);
 // UPDATE PROFILE
-export const updateProfile =
-  (id, data) =>
-    axios.put(
-      `${BASE_URL}/profile/${id}`,
-      data,
-      getAuthHeader()
-    );
+export const updateProfile = (id, data) =>
+  api.put(`/profile/${id}`, data);
 
 // LEAVE APPLY
-export const applyLeave =
-  (data) =>
-    axios.post(
-      `${BASE_URL}/leave`,
-      data,
-      getAuthHeader()
-    );
+export const applyLeave = (data) =>
+  api.post(`/leave`, data);
 
 // LEAVE HISTORY
-export const getLeaves =
-  (employeeId) =>
-    axios.get(
-      `${BASE_URL}/leave/${employeeId}`,
-      getAuthHeader()
-    );
+export const getLeaves = (employeeId) =>
+  api.get(`/leave/${employeeId}`);
 
 // ATTENDANCE
-export const getAttendance =
-  (employeeId) =>
-    axios.get(
-      `${BASE_URL}/attendance/${employeeId}`,
-      getAuthHeader()
-    );
+export const getAttendance = (employeeId) =>
+  api.get(`/attendance/${employeeId}`);
 
     export const requestPasswordReset =
   async (employeeId) => {

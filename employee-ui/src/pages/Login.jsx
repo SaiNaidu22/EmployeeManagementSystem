@@ -33,13 +33,13 @@ function Login() {
   try {
 
     const response =
-      await axios.post(
-        "http://localhost:5157/api/Auth/login",
-        {
-          username,
-          password
-        }
-      );
+  await api.post(
+    "/Auth/login",
+    {
+      username,
+      password
+    }
+  );
 
     localStorage.setItem(
       "token",
