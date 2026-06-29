@@ -1,73 +1,45 @@
 import axios from "axios";
 
-const API_URL =
-  import.meta.env.VITE_API_URL;
-
 const api = axios.create({
-  baseURL: API_URL
+    baseURL: import.meta.env.VITE_API_URL
 });
 
+api.interceptors.request.use(config => {
+    const token = localStorage.getItem("token");
 
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
 
-const getAuthHeader = () => ({
-  headers: {
-    Authorization:
-      `Bearer ${localStorage.getItem("token")}`
-  }
+    return config;
 });
 
-// PROFILE
-export const getProfile =
-  (id) =>
-   api.get(`/profile/${id}`);
-// UPDATE PROFILE
+// Profile
+export const getProfile = (id) =>
+    api.get(`/Employee/profile/${id}`);
+
 export const updateProfile = (id, data) =>
-  api.put(`/profile/${id}`, data);
+    api.put(`/Employee/profile/${id}`, data);
 
-// LEAVE APPLY
+// Leave
 export const applyLeave = (data) =>
-  api.post(`/leave`, data);
+    api.post(`/Employee/leave`, data);
 
-// LEAVE HISTORY
 export const getLeaves = (employeeId) =>
-  api.get(`/leave/${employeeId}`);
+    api.get(`/Employee/leave/${employeeId}`);
 
-// ATTENDANCE
+// Attendance
 export const getAttendance = (employeeId) =>
-  api.get(`/attendance/${employeeId}`);
+    api.get(`/Employee/attendance/${employeeId}`);
 
-    export const requestPasswordReset =
-  async (employeeId) => {
+// Password Reset
+export const requestPasswordReset = (employeeId) =>
+    api.post(`/PasswordReset/request?employeeId=${employeeId}`);
 
-    const response =
-      await api.post(
-        `/PasswordReset/request?employeeId=${employeeId}`
-      );
+export const getResetRequests = () =>
+    api.get(`/PasswordReset/pending`);
 
-    return response.data;
-  };
+export const approveReset = (id) =>
+    api.post(`/PasswordReset/approve/${id}`);
 
-  
-export const getResetRequests =
-  async () => {
-
-    const response =
-      await api.get(
-        "/PasswordReset/pending"
-      );
-
-    return response.data;
-  };
-
-  export const approveReset =
-  async (id) => {
-
-    const response =
-      await api.post(
-        `/PasswordReset/approve/${id}`
-      );
-
-    return response.data;
-  };
-
-  
+export default api;

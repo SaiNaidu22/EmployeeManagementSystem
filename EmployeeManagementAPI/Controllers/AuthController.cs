@@ -26,40 +26,41 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-public IActionResult Login(
-    LoginRequestDto request)
+public IActionResult Login(LoginRequestDto request)
 {
-    var user =
-    _context.Users
-        .FirstOrDefault(
-            x => x.Username ==
-                 request.Username);
+    Console.WriteLine($"Username received: {request.Username}");
+    Console.WriteLine($"Password received: {request.Password}");
 
-if (user == null)
-{
-    return BadRequest($"User '{request.Username}' not found");
-}
+    var user = _context.Users.FirstOrDefault(x => x.Username == request.Username);
 
-if (user.PasswordHash != request.Password)
-{
-    return BadRequest(
-        $"Password mismatch. DB='{user.PasswordHash}', Request='{request.Password}'");
-}
-    var token =
-        GenerateJwtToken(
-            user.Username,
-            user.Role,
-            user.EmployeeId);
+    if (user == null)
+    {
+        Console.WriteLine("User not found");
+        return Unauthorized("User not found");
+    }
 
-    return Ok(
-        new LoginResponseDto
-        {
-            Token = token,
-            Role = user.Role,
-            EmployeeId = user.EmployeeId,
-            MustChangePassword =
-            user.MustChangePassword
-        });
+    Console.WriteLine($"Database password: {user.PasswordHash}");
+
+    if (user.PasswordHash != request.Password)
+    {
+        Console.WriteLine("Password mismatch");
+        return Unauthorized("Password mismatch");
+    }
+
+    Console.WriteLine("Login successful");
+
+    var token = GenerateJwtToken(
+        user.Username,
+        user.Role,
+        user.EmployeeId);
+
+    return Ok(new LoginResponseDto
+    {
+        Token = token,
+        Role = user.Role,
+        EmployeeId = user.EmployeeId,
+        MustChangePassword = user.MustChangePassword
+    });
 }
 
     private string GenerateJwtToken(
